@@ -13,6 +13,8 @@
 
     <!--Title-->
     <TextView
+        android:textColor="#ffffff"
+        android:layout_marginTop="@dimen/margin1"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"
         android:textSize="@dimen/h1"
@@ -34,6 +36,7 @@
 
     <!--Show Rate-->
     <TextView
+        android:textColor="#ffffff"
         android:id="@+id/txtShowRate"
         android:layout_gravity="center_horizontal"
         android:textStyle="bold"

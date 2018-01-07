@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,11 +29,16 @@ public class MainFragment extends Fragment{
     //    Explicit
     private double factorADouble = 33.00; // Constance Rate USD ==> THB
     private String dateString;
+    private boolean aBoolean = true;
+    private EditText editText;
 
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+//        Initial View
+        initialView();
 
 //        Update Factor
         updateFactor();
@@ -40,9 +46,60 @@ public class MainFragment extends Fragment{
 //        Exchange Controller
         exchangeController();
 
+//        ShowRate Controller
+        showRateController();
+
+//        ChengeCurrent Controller
+        changeCurrentController();
 
 
     }   // Main Method
+
+    private void initialView() {
+        editText = getView().findViewById(R.id.edtMoney);
+    }
+
+    private void changeCurrentController() {
+        final ImageView imageView = getView().findViewById(R.id.imvMoney);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                aBoolean = !aBoolean;
+
+                if (aBoolean) {
+
+                    imageView.setImageResource(R.drawable.tha);
+                    editText.setHint("Thai Bath");
+
+
+                } else {
+
+                    imageView.setImageResource(R.drawable.usd);
+                    editText.setHint("Us USD");
+
+                }
+
+            }
+        });
+    }
+
+    private void showRateController() {
+        Button button = getView().findViewById(R.id.btnShowRate);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.contentMainFragment,
+                                ShowRateFragment.showRateInstance(dateString, factorADouble))
+                        .addToBackStack(null)
+                        .commit();
+
+            }
+        });
+    }
 
     private void updateFactor() {
 
@@ -91,8 +148,7 @@ public class MainFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
-//                Initial View
-                EditText editText = getView().findViewById(R.id.edtMoney);
+
                 String moneyString = editText.getText().toString().trim();
 
                 if (moneyString.isEmpty()) {
@@ -105,14 +161,37 @@ public class MainFragment extends Fragment{
 
 //                    No Space
                     double moneyAdouble = Double.parseDouble(moneyString);
-                    double answerAdouble = moneyAdouble / factorADouble;
+
+                    double answerAdouble;
+
+
+                    if (aBoolean) {
+                        answerAdouble = moneyAdouble / factorADouble;
+                    } else {
+                        answerAdouble = moneyAdouble * factorADouble;
+                    }
+
+
 
                     String myAnswerString = String.format("%,.2f", answerAdouble);
 
-                    String answerString = "Your Dolla ==> " + myAnswerString + " USD";
+                    if (aBoolean) {
 
-                    MyAlert myAlert = new MyAlert(getActivity());
-                    myAlert.normalDialog("Thai Bath ==> " + moneyString + " THB", answerString);
+                        String answerString = "Your Dolla ==> " + myAnswerString + " USD";
+
+                        MyAlert myAlert = new MyAlert(getActivity());
+                        myAlert.normalDialog("Thai Bath ==> " + moneyString + " THB", answerString);
+
+                    } else {
+
+                        String answerString = "Your Thai Bath ==> " + myAnswerString + " THB";
+
+                        MyAlert myAlert = new MyAlert(getActivity());
+                        myAlert.normalDialog("US USD ==> " + moneyString + " USD", answerString);
+
+                    }
+
+
 
 
 

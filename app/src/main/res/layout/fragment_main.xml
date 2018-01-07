@@ -25,8 +25,9 @@
 
             <!--Icon-->
             <ImageView
+                android:id="@+id/imvMoney"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_action_money"
+                android:src="@drawable/tha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
