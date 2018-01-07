@@ -13,6 +13,7 @@ import java.text.Format;
 
 import androidthai.in.th.myexchange.R;
 import androidthai.in.th.myexchange.utility.MyAlert;
+import androidthai.in.th.myexchange.utility.MyGetRateFromAPI;
 
 /**
  * Created by masterung on 6/1/2018 AD.
@@ -41,8 +42,13 @@ public class MainFragment extends Fragment{
     private void updateFactor() {
 
         String tag = "7JanV1";
+        String urlJSON = "https://api.fixer.io/latest?symbols=THB&base=USD";
 
         try {
+
+            MyGetRateFromAPI myGetRateFromAPI = new MyGetRateFromAPI(getActivity());
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
