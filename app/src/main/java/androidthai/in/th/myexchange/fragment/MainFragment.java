@@ -28,12 +28,27 @@ public class MainFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+//        Update Factor
+        updateFactor();
+
 //        Exchange Controller
         exchangeController();
 
 
 
     }   // Main Method
+
+    private void updateFactor() {
+
+        String tag = "7JanV1";
+
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }   // updateFactor
 
     private void exchangeController() {
         Button button = getView().findViewById(R.id.btnExchange);
