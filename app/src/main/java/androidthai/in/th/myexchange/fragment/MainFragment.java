@@ -9,13 +9,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.text.Format;
+
 import androidthai.in.th.myexchange.R;
+import androidthai.in.th.myexchange.utility.MyAlert;
 
 /**
  * Created by masterung on 6/1/2018 AD.
  */
 
 public class MainFragment extends Fragment{
+
+    //    Explicit
+    private double factorADouble = 33.00; // Constance Rate USD ==> THB
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -40,8 +47,28 @@ public class MainFragment extends Fragment{
 
                 if (moneyString.isEmpty()) {
 //                    Have Space
+                    MyAlert myAlert = new MyAlert(getActivity());
+                    myAlert.normalDialog("Have Space",
+                            "Please Fill All Every Blank");
 
-                }
+                } else {
+
+//                    No Space
+                    double moneyAdouble = Double.parseDouble(moneyString);
+                    double answerAdouble = moneyAdouble / factorADouble;
+
+                    String myAnswerString = String.format("%,.2f", answerAdouble);
+
+                    String answerString = "Your Dolla ==> " + myAnswerString + " USD";
+
+                    MyAlert myAlert = new MyAlert(getActivity());
+                    myAlert.normalDialog("Thai Bath ==> " + moneyString + " THB", answerString);
+
+
+
+
+
+                }   // if
 
             }   // onClick
         });
